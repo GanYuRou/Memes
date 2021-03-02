@@ -1,0 +1,46 @@
+.header {
+    min-width: 890px;
+    height: 48px;
+    box-shadow: 0px 1px 4px #eee;
+
+    .logo {
+        width: 40px;
+        height: 40px;
+        margin-left: 40px;
+        margin-top: 3px;
+    }
+    .search {
+        display: flex;
+        flex-direction: row-reverse; 
+        padding-top: 7px;
+    }
+
+    .loginAndReg {
+        display: flex;
+        flex-direction: row-reverse;
+        margin-right: 28px;
+        margin-top: 8px;
+    
+        .split {
+            &::after {
+                content: '';
+                display: inline-block;
+                height: 25px;
+                margin-top: 4px;
+                border-right: 1px solid #ccc;
+            }
+        }  
+    }
+
+    :global {
+        .ant-btn-text {
+            &:hover {
+                color: red;
+                background-color: #fff;
+            }
+            &:focus {
+                background-color: #fff;
+            }
+        }
+    }  
+}
