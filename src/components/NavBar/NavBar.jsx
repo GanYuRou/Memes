@@ -1,24 +1,41 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { Row, Col, Menu, Button, Input } from 'antd';
-// import ModalWrapper from 'hocs/ModalWrapper';
-// import Form from './Form';
+
+import ModalWrapper from 'hocs/ModalWrapper';
+import NormalForm from './NormalForm';
 import logo from 'assets/logo.png';
 import styles from './NavBar.module.less';
 
-const { Item } = Menu;
+const { Item, SubMenu } = Menu;
 const { Search } = Input;
-
-console.log(logo);
 
 class NavBar extends Component {
     constructor(props) {
         super(props);
-        this.state = { showForm: false };
+        this.state = {
+            loginVisible: false,
+            signVisible: false,
+        };
+    }
+
+    loginClick = () => {
+        this.setState({
+            loginVisible: true,
+            signVisible: false,
+        });
+    }
+
+    signClick = () => {
+        this.setState({
+            loginVisible: false,
+            signVisible: true,
+        });
     }
 
     render() {
-        // const { showForm } = this.state;
-        // const ModalForm = ModalWrapper(Form);
+        const { loginVisible, signVisible } = this.state;
+        const Form = ModalWrapper(NormalForm);
 
         return (
             <div className={styles['header']}>
@@ -28,11 +45,22 @@ class NavBar extends Component {
                     </Col>
                     <Col span={8}>
                         <Menu mode="horizontal">
-                            <Item key="group">最新套图</Item>
-                            <Item key="meme">最新表情包</Item>
-                            <Item key="sort">分类</Item>
-                            <Item key="interest">趣图</Item>
-                            <Item key="post">发布表情包</Item>
+                            <Item key="group">
+                                <Link to="/group">最新套图</Link>
+                            </Item>
+                            <Item key="hot">
+                                <Link to="/hot">热门表情包</Link>
+                            </Item>
+                            <Item key="sort">
+                                <Link to="/sort">分类</Link>
+                            </Item>
+                            <Item key="fun">
+                                <Link to="/fun">趣图</Link>
+                            </Item>
+                            <SubMenu title="表情投稿">
+                                <Item key="c-group">表情套图</Item>
+                                <Item key="c-single">表情单图</Item>
+                            </SubMenu>
                         </Menu>
                     </Col>
                     <Col span={9} className={styles['search']}>
@@ -40,17 +68,18 @@ class NavBar extends Component {
                     </Col>
                     <Col span={4}>
                         <div className={styles['loginAndReg']}>
-                            <Button type="text">登录</Button>
+                            <Button type="text" onClick={this.loginClick}>登录</Button>
                             <span className={styles['split']} />
-                            <Button type="text">注册</Button>
+                            <Button type="text" onClick={this.signClick}>注册</Button>
                         </div>
                     </Col>
                 </Row>
-                {/* {
-                    showForm && (
-                        <ModalForm title="注册" />
-                    )
-                } */}
+                {
+                    signVisible && <Form title="注册" btnText="注册" />
+                }
+                {
+                    loginVisible && <Form title="登录" btnText="登录" />
+                }
             </div>
         );
     }

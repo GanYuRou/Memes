@@ -21,5 +21,8 @@ module.exports = override(
         'assets': '@/assets',
         'components': '@/components',
         'hocs': '@/hocs',
+        'router': '@/router',
+        'views': '@/views',
+
     }),
 );

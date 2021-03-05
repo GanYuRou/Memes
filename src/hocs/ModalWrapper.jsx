@@ -14,14 +14,15 @@ const ModalWrapper = (ModalWrapper) => {
         }
 
         render() {
-            const { title } = this.props;
+            const { title, footer = null, ...resProps } = this.props;
             const { visible } = this.state;
             return (
                 <Modal title={title}
+                    footer={footer}
                     visible={visible}                  
                     onCancel={this.onCancel}
                 >
-                    <ModalWrapper />
+                    <ModalWrapper {...resProps} />
                 </Modal>
             );
         }
