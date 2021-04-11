@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { Row, Col, Menu, Button, Input } from 'antd';
 
 import ModalWrapper from 'hocs/ModalWrapper';
-import NormalForm from './NormalForm';
+import NormalForm from 'components/NormalForm';
 import logo from 'assets/logo.png';
 import styles from './NavBar.module.less';
 
@@ -46,16 +46,16 @@ class NavBar extends Component {
                     <Col span={8}>
                         <Menu mode="horizontal">
                             <Item key="group">
-                                <Link to="/group">最新套图</Link>
+                                <NavLink activeClassName={styles['active']} to="/group">最新套图</NavLink>
                             </Item>
                             <Item key="hot">
-                                <Link to="/hot">热门表情包</Link>
+                                <NavLink activeClassName={styles['active']} to="/hot">热门表情包</NavLink>
                             </Item>
                             <Item key="sort">
-                                <Link to="/sort">分类</Link>
+                                <NavLink activeClassName={styles['active']} to="/sort">分类</NavLink>
                             </Item>
                             <Item key="fun">
-                                <Link to="/fun">趣图</Link>
+                                <NavLink activeClassName={styles['active']} to="/fun">趣图</NavLink>
                             </Item>
                             <SubMenu title="表情投稿">
                                 <Item key="c-group">表情套图</Item>
@@ -75,10 +75,10 @@ class NavBar extends Component {
                     </Col>
                 </Row>
                 {
-                    signVisible && <Form title="注册" btnText="注册" />
+                    signVisible && <Form title="注册" btnText="注册" type="register" />
                 }
                 {
-                    loginVisible && <Form title="登录" btnText="登录" />
+                    loginVisible && <Form title="登录" btnText="登录" type="login" />
                 }
             </div>
         );

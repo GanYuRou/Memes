@@ -21,6 +21,7 @@ module.exports = override(
         'assets': '@/assets',
         'components': '@/components',
         'hocs': '@/hocs',
+        'network': '@/network',
         'router': '@/router',
         'views': '@/views',
 
