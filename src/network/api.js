@@ -8,6 +8,9 @@ api.LOGIN = `${api.BASE_URL}/login`;
 api.REGISTER = `${api.BASE_URL}/register`;
 
 // pagination
-api.PAGINATION = `${api.BASE_URL}/pagination`;
+api.GROUP_PAGINATION = `${api.BASE_URL}/group`;
+
+// pagination
+api.HOT_PAGINATION = `${api.BASE_URL}/hot`;
 
 export default api;

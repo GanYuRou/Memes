@@ -1,11 +1,12 @@
 import React from 'react';
 import { Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import store from 'store/index';
+import { apiOK } from 'utils/utils';
 import { martchLogin, RegisterUser } from 'network/services';
 import styles from './NormalForm.module.less';
 
 const { Item } = Form;
-
 
 const NormalFrom = (props) => {
     const [form] = Form.useForm();
@@ -13,23 +14,19 @@ const NormalFrom = (props) => {
 
     const handleConfirm = () => {
         form.validateFields()
-        .then(async value => {
-            if(type === 'login') {
-                const resp = await martchLogin(value);
-                console.log(resp);
-            } else {
-                console.log('reg');
-                const resp = await RegisterUser(value);
-                console.log(resp);
-            }
-        })
-        .catch(err => {
-            console.log(err);
-            // const {email, password} = err.values;
-            // if(!email) {
-            //     Message.error('邮箱或者密码不能为空！');
-            // }
-        });
+            .then(async value => {
+                if (type === 'login') {
+                    const resp = await martchLogin(value);
+                    if (apiOK) {
+                        store.dispatch({ type: 'LOGIN', payload: resp.code });
+                    }
+                } else {
+                    const resp = await RegisterUser(value);
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }
 
     return (
@@ -51,7 +48,7 @@ const NormalFrom = (props) => {
                 rules={[{
                     required: true,
                     message: '密码最少六位且至少包含一个大写字母',
-                    pattern: /^(?=.*[A-Z])(?=.*\d)[\s\S]{6,16}$/ 
+                    pattern: /^(?=.*[A-Z])(?=.*\d)[\s\S]{6,16}$/
                 }]}
             >
                 <Input type="password"

@@ -24,6 +24,7 @@ module.exports = override(
         'network': '@/network',
         'router': '@/router',
         'views': '@/views',
-
+        'store': '@/store',
+        'utils': '@/utils',
     }),
 );

@@ -4,11 +4,26 @@
     margin-top: 20px;
     background: #FFF;
 
-    .detail-title {
-        font-size: 22px;
-        font-weight: 600;
-        text-align: center;
-        padding: 10px 0px;
+    .detail-head {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 10px;
+
+        &-title {
+            font-size: 22px;
+            font-weight: 600;
+            padding: 10px 0px; 
+        }
+
+        &-tags {
+            .tag {
+                padding: 2px 4px;
+                color: #4682b4;
+                border: 1px solid #4682b4;
+                margin-right: 10px;
+            }
+        }
     }
 
     .detail-container {
@@ -21,5 +36,12 @@
             height: 220px;
             margin: 10px 0px;
         }
+    }
+}
+
+:global {
+    .icon-forum_help_start-copy {
+        font-size: 22px;
+        color: #ccc;
     }
 }
