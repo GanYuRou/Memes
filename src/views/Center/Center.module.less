@@ -37,6 +37,35 @@
     .part-one {
         .msg-form {
             width: 630px;
+
+            &>:last-child {
+                text-align: center;
+            }
+        }
+    }
+
+    .part-two {
+        .star-list {
+            display: flex;
+            flex-wrap: wrap;
+        }
+    }
+
+    .part-three {
+        .upload-list {
+            display: flex;
+            flex-wrap: wrap;
+
+            .upload-item {
+                margin: 10px 20px;
+                border: 2px dashed #ffb597;
+
+                img {
+                    width: 170px;
+                    height: 170px;
+                    cursor: pointer;
+                }
+            }
         }
     }
 }

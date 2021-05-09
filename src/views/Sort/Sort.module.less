@@ -1,9 +1,21 @@
-.group-wrap {
+.sort-wrap {
     display: flex;
     flex-direction: row;
-    .group-left {
+
+    .sort-left {
         width: 75%;
         min-width: 780px;
+        padding: 18px;
+
+        .sort-title {
+            width: 95%;
+            margin-left: 20px;
+            padding-left: 20px;
+            background-color: #ffb597;
+            font-size: 18px;
+            font-weight: 500;
+            color: #fff;
+        }
 
         :global {
             .ant-pagination {
@@ -13,7 +25,7 @@
         }
     }
 
-    .group-right{
+    .sort-right {
         width: 23%;
         min-width: 270px;
         height: 300px;

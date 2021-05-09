@@ -31,7 +31,7 @@ axios.interceptors.response.use(response => {
 
 request.get = (url, option = {}) => {
     return axios.get(url, option).then((response) => {
-        return response.data;
+        return response;
     })
 }
 
@@ -39,7 +39,7 @@ request.post = (url, data, option = {}) => {
     return new Promise((resolve, reject) => {
         axios.post(url, data, option)
             .then((response) => {
-                resolve(response.data);
+                resolve(response);
             })
             .catch((error) => {
                 const { response } = error;
@@ -47,12 +47,5 @@ request.post = (url, data, option = {}) => {
             })
     })
 }
-
-// 请求拦截
-// axios.interceptors.request.use(config => {
-//     return config;
-// }, err => {
-//     console.log(err);
-// })
 
 export default request;

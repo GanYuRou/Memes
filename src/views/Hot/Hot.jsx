@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Pagination } from 'antd';
 import _ from 'lodash';
-import { becomeRandom, fetchHotList } from 'network/services';
+import { apiOK } from 'utils/utils';
+import { fetchHotList } from 'network/services';
 import GroupItem from 'components/GroupItem';
 import HotTag from 'components/HotTag';
 import styles from './Hot.module.less';
@@ -11,14 +12,21 @@ class Hot extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            total: 0,
             dataSource: [],
-            total: 0
+        }
+    }
+
+    fetchHot = async (params = { pageNo: 1, pageSize: 6 }) => {
+        const resp = await fetchHotList(params);
+        if (apiOK(resp)) {
+            const { data } = resp;
+            this.setState({ dataSource: data.records, total: data.total });
         }
     }
 
     async componentDidMount() {
-        const resp = await fetchHotList({ pageNo: 1, pageSize: 6 });
-        this.setState({ dataSource: resp.records, total: resp.total });
+        this.fetchHot();
     }
 
     handleClick = (detail) => {
@@ -30,8 +38,7 @@ class Hot extends Component {
     }
 
     handleChange = async (current, pageSize) => {
-        const resp = await fetchHotList({ pageNo: current, pageSize });
-        this.setState({ dataSource: resp.records, total: resp.total });
+        this.fetchHot({ pageNo: current, pageSize });
     }
 
     render() {
@@ -42,7 +49,7 @@ class Hot extends Component {
                     {
                         _.isEmpty(dataSource) || dataSource.map((item, index) => (
                             <GroupItem {...item}
-                                key={index}
+                                key={item.code}
                                 onClick={() => this.handleClick(item)}
                             />
                         ))

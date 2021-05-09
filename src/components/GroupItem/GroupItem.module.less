@@ -1,7 +1,7 @@
 .group-item {
     height: 200px;
     position: relative;
-    padding: 16px;
+    padding: 8px;
     margin: 20px 26px;
     margin-top: 16px;
     background: #fff;
@@ -19,6 +19,14 @@
         font-size: 16px;
         font-weight: 600;
         color: #0d1a26;
+    }
+
+    .active {
+        color: #ffd700;
+    }
+
+    .no-active {
+        color: #ccc;
     }
 
     .star {
@@ -45,5 +53,11 @@
         position: absolute;
         bottom: 13px;
         left: 13px;
+    }
+}
+
+:global {
+    .icon-forum_help_start-copy {
+        font-size: 20px;
     }
 }

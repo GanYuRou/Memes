@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Pagination } from 'antd';
 import _ from 'lodash';
+import { apiOK } from 'utils/utils';
 import { fetchGroupList } from 'network/services';
 import GroupItem from 'components/GroupItem';
 import HotTag from 'components/HotTag';
@@ -10,14 +11,21 @@ class Group extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            total: 0,
             dataSource: [],
-            total: 0
         }
     }
 
-    async componentDidMount() {
-        const resp = await fetchGroupList({ pageNo: 1, pageSize: 6 });
-        this.setState({ dataSource: resp.records, total: resp.total });
+    fetchGroup = async (params = { pageNo: 1, pageSize: 6 }) => {
+        const resp = await fetchGroupList(params);
+        if(apiOK(resp)) {
+            const { data } = resp;
+            this.setState({ dataSource: data.records, total: data.total });
+        }
+    }
+
+    componentDidMount() {
+        this.fetchGroup();
     }
 
     handleClick = (detail) => {
@@ -29,8 +37,7 @@ class Group extends Component {
     }
 
     handleChange = async (current, pageSize) => {
-        const resp = await fetchGroupList({ pageNo: current, pageSize });
-        this.setState({ dataSource: resp.records, total: resp.total });
+        this.fetchGroup({ pageNo: current, pageSize });
     }
 
     render() {
@@ -41,7 +48,7 @@ class Group extends Component {
                     {
                         _.isEmpty(dataSource) || dataSource.map((item, index) => (
                             <GroupItem {...item}
-                                key={index}
+                                key={item.code}
                                 onClick={() => this.handleClick(item)}
                             />
                         ))

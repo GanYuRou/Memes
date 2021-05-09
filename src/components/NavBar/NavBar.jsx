@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Row, Col, Menu, Button, Input } from 'antd';
 import store from 'store/index';
+import { searchList } from 'network/services';
+import { apiOK } from 'utils/utils';
 import ModalWrapper from 'hocs/ModalWrapper';
 import NormalForm from 'components/NormalForm';
 import logo from 'assets/logo.png';
@@ -9,7 +11,7 @@ import styles from './NavBar.module.less';
 
 const { Item } = Menu;
 const { Search } = Input;
-
+const Form = ModalWrapper(NormalForm);
 class NavBar extends Component {
     constructor(props) {
         super(props);
@@ -22,7 +24,12 @@ class NavBar extends Component {
     }
 
     storeChange = () => {
-        this.setState({ userName: store.getState() });
+        const { code, nick } = store.getState();
+        if(nick) {
+            this.setState({ userName: nick });
+        } else {
+            this.setState({ userName: code });
+        }
     }
 
     loginClick = () => {
@@ -39,11 +46,13 @@ class NavBar extends Component {
         });
     }
 
+    onSearch = async (value) => {
+        const resp = await searchList({ keyword: value})
+        // apiOK(resp);
+    }
+
     render() {
         const { loginVisible, signVisible, userName } = this.state;
-        console.log(userName);
-        const Form = ModalWrapper(NormalForm);
-
         return (
             <div className={styles['header']}>
                 <Row>
@@ -76,11 +85,14 @@ class NavBar extends Component {
                         </Menu>
                     </Col>
                     <Col span={9} className={styles['search']}>
-                        <Search placeholder="输入关键字，搜索表情包" style={{ width: 350 }} />
+                        <Search style={{ width: 350 }}
+                            placeholder="输入关键字，搜索表情包"
+                            onSearch={this.onSearch}
+                        />
                     </Col>
                     <Col span={4}>
                         {
-                            userName ? <div>{userName}</div> : (
+                            userName ? <div className={styles['name-wrap']}>{userName}</div> : (
                                 <div className={styles['loginAndReg']}>
                                     <Button type="text" onClick={this.loginClick}>登录</Button>
                                     <span className={styles['split']} />

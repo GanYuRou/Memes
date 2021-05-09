@@ -3,25 +3,30 @@ import { Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import store from 'store/index';
 import { apiOK } from 'utils/utils';
-import { martchLogin, RegisterUser } from 'network/services';
+import { martchLogin, registerUser } from 'network/services';
 import styles from './NormalForm.module.less';
 
 const { Item } = Form;
 
 const NormalFrom = (props) => {
     const [form] = Form.useForm();
-    const { btnText, type } = props;
+    const { btnText, type, onCancel } = props;
 
-    const handleConfirm = () => {
+    const handleConfirm = (event) => {
+        event.stopPropagation();
         form.validateFields()
             .then(async value => {
                 if (type === 'login') {
                     const resp = await martchLogin(value);
-                    if (apiOK) {
-                        store.dispatch({ type: 'LOGIN', payload: resp.code });
+                    if (apiOK(resp)) {
+                        const { data: { code, nick } } = resp
+                        store.dispatch({ type: 'CODE', payload: code });
+                        nick && store.dispatch({ type: 'NICK', payload: nick });
+                        onCancel();
                     }
                 } else {
-                    const resp = await RegisterUser(value);
+                    const resp = await registerUser(value);
+                    apiOK(resp) && onCancel();
                 }
             })
             .catch(err => {

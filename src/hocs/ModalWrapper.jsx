@@ -18,11 +18,12 @@ const ModalWrapper = (ModalWrapper) => {
             const { visible } = this.state;
             return (
                 <Modal title={title}
+                    maskClosable
                     footer={footer}
                     visible={visible}                  
                     onCancel={this.onCancel}
                 >
-                    <ModalWrapper {...resProps} />
+                    <ModalWrapper {...resProps} onCancel={this.onCancel} />
                 </Modal>
             );
         }
