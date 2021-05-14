@@ -1,5 +1,5 @@
 const api = {};
-api.BASE_URL = 'http://127.0.0.1:8000/pictures';
+api.BASE_URL = 'http://aston.zapto.org:28500/web/pictures';
 
 // 登录
 api.LOGIN = `${api.BASE_URL}/login`;
