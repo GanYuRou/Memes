@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Row, Col, Menu, Button, Input } from 'antd';
 import store from 'store/index';
+import request from 'network/request';
 import { searchList } from 'network/services';
 import { apiOK } from 'utils/utils';
 import ModalWrapper from 'hocs/ModalWrapper';
@@ -25,7 +26,7 @@ class NavBar extends Component {
 
     storeChange = () => {
         const { code, nick } = store.getState();
-        if(nick) {
+        if (nick) {
             this.setState({ userName: nick });
         } else {
             this.setState({ userName: code });
@@ -47,8 +48,12 @@ class NavBar extends Component {
     }
 
     onSearch = async (value) => {
-        const resp = await searchList({ keyword: value})
-        // apiOK(resp);
+        const resp = await searchList({ keyword: value })
+        if (apiOK(resp)) {
+            store.dispatch({ type: 'SEARCH', payload: resp.data.records });
+            const history = request.getRouterHistory();
+            history.push('/search');
+        }
     }
 
     render() {

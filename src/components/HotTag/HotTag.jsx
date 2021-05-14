@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import store from 'store/index';
+import request from 'network/request';
 import { fetchHotTags, fetchHotGroups } from 'network/services';
 import { apiOK } from 'utils/utils';
 import styles from './HotTag.module.less';
@@ -19,9 +21,12 @@ const HotTag = (props) => {
     }, []);
 
     const handleClickTAg = async (code) => {
-        console.log(props);
         const resp = await fetchHotGroups({ code });
-        console.log(resp);
+        if (apiOK(resp)) {
+            const history = request.getRouterHistory();
+            store.dispatch({ type: 'TAG', payload: resp.data.records });
+            history.push('/tag');
+        }
     };
 
     return (

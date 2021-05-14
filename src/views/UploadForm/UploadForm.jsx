@@ -8,7 +8,7 @@ import styles from './UploadForm.module.less';
 
 const { Item } = Form;
 const { Dragger } = Upload;
-const UPLOADLIST = [];
+let UPLOADLIST = [];
 
 const UploadForm = () => {
 
@@ -18,6 +18,8 @@ const UploadForm = () => {
         values.upload = UPLOADLIST;
         values.tag = values.tag.split(/[、 ]/);
         const resp = await uploadGroup(values);
+        // 不管是否上传成功，都要清空
+        UPLOADLIST = [];
     }
 
     const onChange = (info) => {

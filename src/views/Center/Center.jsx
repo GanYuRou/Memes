@@ -46,11 +46,7 @@ const Center = (props) => {
         })
     }
 
-    const onFinish = async (values) => {
-        const resp = await modifyInfomation({ code, ...values });
-        apiOK(resp) && store.dispatch({ type: 'NICK', payload: values.nick });
-    }
-
+    // 初始化基本信息
     const initInformation = async () => {
         const resp = await fetchInformation({ code });
         if (apiOK(resp)) {
@@ -58,6 +54,12 @@ const Center = (props) => {
             info.birthday = moment(info.birthday).format('YYYY-MM-DD')
             form.setFieldsValue(info);
         }
+    }
+
+    // 修改基本信息
+    const onFinish = async (values) => {
+        const resp = await modifyInfomation({ code, ...values });
+        apiOK(resp) && store.dispatch({ type: 'NICK', payload: values.nick });
     }
 
     const fetchStarGroups = async () => {
@@ -167,7 +169,7 @@ const Center = (props) => {
                                         className={styles['upload-item']}
                                         onClick={() => handleClick(item)}
                                     >
-                                        <img src={item.images[0].url} alt=""/>
+                                        <img src={item.images[0].url} alt="" />
                                     </div>
                                 ))
                             }

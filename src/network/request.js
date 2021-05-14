@@ -2,6 +2,7 @@ import axios from 'axios';
 import { message } from 'antd';
 
 const request = {};
+let history = null;
 
 request.toastError = (errorMsg, type) => {
     setTimeout(() => {
@@ -11,6 +12,14 @@ request.toastError = (errorMsg, type) => {
             message.error(errorMsg)
         }
     }, 300)
+}
+
+request.setHistory = (reactHistory) => {
+    history = reactHistory;
+}
+
+request.getRouterHistory = () => {
+    return history;
 }
 
 // 响应拦截

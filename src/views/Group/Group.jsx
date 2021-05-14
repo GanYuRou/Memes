@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Pagination } from 'antd';
 import _ from 'lodash';
 import { apiOK } from 'utils/utils';
+import request from 'network/request';
 import { fetchGroupList } from 'network/services';
 import GroupItem from 'components/GroupItem';
 import HotTag from 'components/HotTag';
@@ -26,6 +27,7 @@ class Group extends Component {
 
     componentDidMount() {
         this.fetchGroup();
+        request.setHistory(this.props.history);
     }
 
     handleClick = (detail) => {

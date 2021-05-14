@@ -5,8 +5,9 @@ import Hot from 'views/Hot';
 import Sort from 'views/Sort';
 import UploadForm from 'views/UploadForm';
 import Center from 'views/Center';
+import Tag from 'views/Tag';
+import Search from 'views/Search';
 import GroupDetail from 'components/GroupDetail';
-
 
 const BasicRouter = () => {
     return (
@@ -16,6 +17,8 @@ const BasicRouter = () => {
             <Route path="/sort" component={Sort} />
             <Route path="/upload" component={UploadForm} />
             <Route path="/center" component={Center} />
+            <Route path="/tag" component={Tag} />
+            <Route path="/search" component={Search} />
             <Route path="/detail" component={GroupDetail} />
             <Redirect to="/group" />
         </Switch>
