@@ -1,4 +1,5 @@
 const api = {};
+// 基本地址
 api.BASE_URL = 'http://aston.zapto.org:28500/web/pictures';
 
 // 登录
