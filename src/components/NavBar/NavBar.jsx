@@ -26,6 +26,8 @@ class NavBar extends Component {
 
     storeChange = () => {
         const { code, nick } = store.getState();
+        console.log(code);
+        console.log(nick);
         if (nick) {
             this.setState({ userName: nick });
         } else {
